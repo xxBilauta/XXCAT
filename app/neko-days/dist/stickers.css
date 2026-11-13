@@ -1,0 +1,49 @@
+.zoa-sticker {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  background-image: url('./assets/zoa-stickers.png');
+  background-repeat: no-repeat;
+  background-size: 300% 300%;
+  vertical-align: middle;
+  filter: none;
+  transform: none;
+}
+
+.sticker-item .zoa-sticker,
+.sticker-item > span.zoa-sticker {
+  width: 88px;
+  height: 88px;
+  font-size: 0;
+  filter: none;
+  transform: none;
+}
+
+.day-sticker .zoa-sticker {
+  width: 36px;
+  height: 36px;
+}
+
+.journal-card-bottom button .zoa-sticker {
+  width: 30px;
+  height: 30px;
+}
+
+.journal-entry .zoa-sticker {
+  width: 32px;
+  height: 32px;
+}
+
+@media (max-width: 720px) {
+  .sticker-item .zoa-sticker,
+  .sticker-item > span.zoa-sticker {
+    width: 70px;
+    height: 70px;
+  }
+
+  .day-sticker .zoa-sticker {
+    width: 28px;
+    height: 28px;
+  }
+}
