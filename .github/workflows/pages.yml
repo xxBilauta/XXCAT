@@ -1,0 +1,45 @@
+name: Deploy XXCAT to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/neko-days/dist/**'
+      - 'app/neko-days/tests/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6
+      - name: Check JavaScript and run app tests
+        working-directory: app/neko-days
+        run: |
+          for file in dist/*.js; do node --check "$file"; done
+          node --test tests/*.test.mjs
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload the website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: app/neko-days/dist
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
